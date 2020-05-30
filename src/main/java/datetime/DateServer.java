@@ -8,52 +8,52 @@ import java.util.Date;
 import java.util.TimeZone;
 
 public class DateServer {
-    private String _date;
-    private String _format;
+    private String time;
+    private String timezone;
 
-    public DateServer(String _date, String _format) {
-        this._date = _date;
-        this._format = _format;
+    public DateServer(String time, String timezone) {
+        this.time = time;
+        this.timezone = timezone;
     }
 
-    public String get_date() {
-        return _date;
+    public String getTime() {
+        return time;
     }
 
-    public void set_date(String _date) {
-        this._date = _date;
+    public void setTime(String time) {
+        this.time = time;
     }
 
-    public String get_format() {
-        return _format;
+    public String getTimezone() {
+        return timezone;
     }
 
-    public void set_format(String _format) {
-        this._format = _format;
+    public void setTimezone(String timezone) {
+        this.timezone = timezone;
     }
 
     public void changeDate(SimpleDateFormat sdf) throws ParseServeException, ParseException {
         convertFormat();
         validateTimeZones();
-        sdf.setTimeZone(TimeZone.getTimeZone(this._format));
+        sdf.setTimeZone(TimeZone.getTimeZone(this.timezone));
         Date date;
-        date = sdf.parse(this._date);
+        date = sdf.parse(this.time);
         sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-        this._date = sdf.format(date);
-        this._format = "UTC";
+        this.time = sdf.format(date);
+        this.timezone = "UTC";
     }
 
     private void convertFormat() {
-        String[] list = this._format.split("/");
-        this._format = "";
+        String[] list = this.timezone.split("/");
+        this.timezone = "";
         for (int i = 0; i < list.length ; i++){
             if ( i == 0 ){
                 if (list.length == 2)
-                    this._format += list[i].substring(0,1).toUpperCase() + list[i].substring(1) + "/";
+                    this.timezone += list[i].substring(0,1).toUpperCase() + list[i].substring(1) + "/";
                 else
-                    this._format += list[i].substring(0,1).toUpperCase() + list[i].substring(1);
+                    this.timezone += list[i].substring(0,1).toUpperCase() + list[i].substring(1);
             } else {
-                this._format += list[i].substring(0,1).toUpperCase() + list[i].substring(1);
+                this.timezone += list[i].substring(0,1).toUpperCase() + list[i].substring(1);
             }
         }
     }
@@ -62,7 +62,7 @@ public class DateServer {
         boolean valid = false;
         String[] validIDs = TimeZone.getAvailableIDs();
         for (String str : validIDs) {
-            if (str != null && str.equals(this._format)) {
+            if (str != null && str.equals(this.timezone)) {
                 valid = true;
             }
         }

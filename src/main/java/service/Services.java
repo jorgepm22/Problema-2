@@ -8,14 +8,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Path( "/server" )
 public class Services  {
     @POST
     @Path( "/date" )
     @Produces(MediaType.APPLICATION_JSON)
-    public Response setDate(@QueryParam("hora") String dateTime,@QueryParam("timezone") String format)
+    public Response setDate(@QueryParam("time") String dateTime,@QueryParam("timezone") String format)
     {
         String DATE_FORMAT = "HH:mm:ss";
         DateServer dateServer = new DateServer(dateTime,format);
